@@ -1,11 +1,35 @@
+let bx = 0;
+let by = 0;
+let current = 0;
+let bsize = 100;
+let curtain = 250;
 let things = [];
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
+    angleMode(DEGREES);
 }
 
 function draw(){
     background(66,166,166);
+
+    for(let i = 0; i < things.length; i++){
+        things[i].age += 1;
+        if(things[i].age > 1000){
+            things.splice(i,1);
+        }
+    }
+
+    for(let i = 0; i < things.length; i++){
+        things[i].x += things[i].speed * cos(things[i].direction);
+        things[i].y += things[i].speed * sin(things[i].direction);
+    }
+
+    if(mouseY > curtain){
+        if(bx != mouseX || by != mouseY){
+            things[things.length] = new thing(mouseX, mouseY, bsize / (1 + (dist(bx, by, mouseX, mouseY) / 10)));
+        }
+    }
 
     for(let i = 0; i < things.length; i++){
         noStroke();
@@ -15,11 +39,15 @@ function draw(){
 
     noStroke();
     fill(26,106,106);
-    rect(0,0,width,250);
+    rect(0,0,width,curtain);
+
+    current = (current + 10)%360;
+
+    bx = mouseX;
+    by = mouseY;
 }
 
 function mousePressed(){
-    things[things.length] = new thing(mouseX, mouseY);
 }
 
 function windowResized(){
@@ -27,9 +55,12 @@ function windowResized(){
 }
 
 class thing{
-    constructor(x,y){
+    constructor(x,y,size){
         this.x = x;
         this.y = y;
-        this.size = 50;
+        this.size = size;
+        this.age = 0;
+        this.direction = current;
+        this.speed = 3;
     }
 }
