@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.title {
+    font-family: "SUSE", sans-serif;
+    font-size: clamp(6rem, 2rem + 10vmin, 16rem);
+    letter-spacing: 1px;
+    color: white;
+    opacity: 0.9;
+    max-width: 40rem;
+    margin: auto;
+    text-shadow: 4px 4px black;
+}
+
+.para {
+    font-family: "Roboto Slab", serif;
+    font-size: clamp(3rem, 1rem + 2vmin, 16rem);
+    letter-spacing: 1px;
+    color: white;
+    opacity: 0.9;
+    max-width: 50rem;
+    margin: auto;
+    text-shadow: 2px 2px black;
+}
