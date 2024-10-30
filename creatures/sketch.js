@@ -46,20 +46,20 @@ class creature{
     this.segments = [];
     this.maxsize = random(30,90);
     
-    this.walking = true;
-    this.leftup = false;
-    this.cycle = random(10,30);
-    this.cyclenow = 0;
-    this.speed = this.maxsize * random(0.03,0.08);
-    
     let legnum = [1,1,1,2,2,3];
     this.legs = legnum[int(random(legnum.length))];
     this.legplaces = [];
+    
+    let necknum = [0,0,0,1,1,2];
+    this.necks = necknum[int(random(necknum.length))];
     
     let tailnum = [1,1,1,2,2,3];
     this.tails = tailnum[int(random(tailnum.length))];
     
     this.allbits = ["head"];
+    for(let i = 0; i < this.necks; i++){
+      this.allbits[this.allbits.length] = "neck";
+    }
     for(let i = 0; i < this.legs; i++){
       if(i != 0){
         let extranum = [0,0,0,1,1,2];
@@ -85,7 +85,7 @@ class creature{
         } else {
           tempsize = random(this.maxsize * 0.6, this.maxsize * 0.9);
         }
-      } else if(this.allbits[i] == "middle"){
+      } else if(this.allbits[i] == "middle" || this.allbits[i] == "neck"){
         tempsize = random(this.maxsize * 0.5, this.maxsize * 0.8);
       } else {
         tempsize = random(this.maxsize * 0.2, this.maxsize * 0.5);
@@ -98,8 +98,8 @@ class creature{
         }
         
         let tempv;
-        if(this.allbits[i] == "anchor" || this.allbits[i] == "middle"){
-          tempv = createVector(random(0.5,1),random(-0.5,0.5));
+        if(this.allbits[i] == "anchor" || this.allbits[i] == "middle" || this.allbits[i] == "neck"){
+          tempv = createVector(random(0.5,1),random(-0.9,0.9));
           tempv.setMag(random(minlength, minlength * 2.5));
         } else {
           tempv = createVector(random(0.1,1),random(-0.9,0.9));
@@ -117,7 +117,8 @@ class creature{
         lowest = this.segments[i].position.y + this.segments[i].size / 2;
       }
     }
-    lowest += random(this.maxsize * 0.1, this.maxsize * 0.8);
+    this.above = random(this.maxsize * 0.2, this.maxsize * 1);
+    lowest += this.above;
     
     this.fulllength = current.x + this.segments[0].size / 2 + this.segments[this.segments.length - 1].size / 2;
     
@@ -136,12 +137,37 @@ class creature{
       }
     }
     
+    this.walking = true;
+    this.leftup = false;
+    this.cycle = random(10,25);
+    this.cyclenow = 0;
+    let shortleg = this.segments[this.legplaces[0]].legs[0].length;
+    for(let i = 1; i < this.legs; i++){
+      if(this.segments[this.legplaces[i]].legs[0].length < shortleg){
+        shortleg = this.segments[this.legplaces[i]].legs[0].length;
+      }
+    }
+    shortleg = shortleg * 2;
+    this.maxspeed = sqrt(sq(shortleg) - sq(shortleg - this.above)) / this.cycle;
+    this.speed = random(this.maxspeed/2, this.maxspeed);
+    
     this.mycolors = [];
     let colorgens = [];
     let tinttypes = [];
     let colornum = constrain(int(random(1,4)), 1, int(this.segments.length / 2));
     for(let i = 0; i < colornum; i++){
-      this.mycolors[i] = color(random(40,220), random(40,220), random(40,220));
+      let colorratio = [];
+      let colortotal = 0;
+      for(let j = 0; j < 3; j++){
+        colorratio[j] = random(0.1,1);
+        colortotal += colorratio[j];
+      }
+      for(let j = 0; j < 3; j++){
+        colorratio[j] = colorratio[j] / colortotal;
+      }
+      let intensity = random(200,255);
+      
+      this.mycolors[i] = color(colorratio[0] * intensity, colorratio[1] * intensity, colorratio[2] * intensity);
       colorgens[i] = new ColorGenerator(this.mycolors[i]);
       tinttypes[i] = 2;
     }
