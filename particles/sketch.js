@@ -16,7 +16,7 @@ function setup() {
 function draw() {
   //background(255);
   
-  if(frameCount % 30 == 0 && frameCount > 0 && particles.length < particlemax){
+  if(frameCount % 10 == 0 && frameCount > 0 && particles.length < particlemax){
     let newsize = defaultsize;
     let rparticle = particles[int(random(particles.length))];
     let pos = createVector(rparticle.position.x, rparticle.position.y);
