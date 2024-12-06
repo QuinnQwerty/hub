@@ -8,7 +8,7 @@ let totalwords;
 let maxdisplay;
 let stuffwidth;
 let minletters = 3;
-let maxletters = 10;
+let maxletters = 6;
 let longword = '';
 let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 let chances = true;
