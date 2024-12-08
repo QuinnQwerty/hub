@@ -1089,7 +1089,6 @@ class Window{
       if(this.mode == "name"){
         fill(255)
         noStroke();
-        textStyle(BOLD);
         textSize(borderx * 1.5);
         textAlign(CENTER, CENTER);
         text(this.name, this.x + this.showsize * 0.5, this.y + (this.showsize * ratio) * 0.3);
@@ -1100,7 +1099,6 @@ class Window{
         
         fill(255)
         noStroke();
-        textStyle(BOLD);
         textSize(borderx * 0.5);
         textAlign(LEFT, CENTER);
         text(this.name, this.x + borderx * 0.3, this.y + bordery * 0.54);
