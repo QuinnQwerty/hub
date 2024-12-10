@@ -762,7 +762,7 @@ class Window{
     if(this.name == "tree"){
       newchildren.push("branch");
       newchildren.push("leaf");
-      newchildren.push("trunk");
+      newchildren.push("tree trunk");
     }
     if(this.name == "branch"){
       newchildren.push("wood");
@@ -770,7 +770,7 @@ class Window{
     if(this.name == "wood"){
       newchildren.push("plant cells");
     }
-    if(this.name == "trunk"){
+    if(this.name == "tree trunk"){
       newchildren.push("wood");
     }
     if(this.name == "woods"){
