@@ -175,7 +175,7 @@ function draw(){
   push();
   let zoomt = zoom;
   if(mode == "auto"){
-    zoomt = 1;
+    zoomt = 1.8;
   }
   scale(zoomt);
   translate((width / zoomt) / 2 - focus.x, (height / zoomt) / 2 - focus.y);
